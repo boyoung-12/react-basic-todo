@@ -28,7 +28,7 @@ const TodoList = () => {
       return;
     }
 
-    setTodos([...todos, { id: crypto.randomUUID(), text: newTodo }]);
+    setTodos([...todos, { id: crypto.randomUUID(), text: newTodo, completed:false}]);
     setNewTodo("");
   };
 
@@ -37,8 +37,9 @@ const TodoList = () => {
   const updatedTodos = todos.map((todo)=>{
     if(todo.id===id){
       return {
-        id : todo.id,
-        text : todo.text,
+        // id : todo.id,
+        // text : todo.text,
+        ...todo,
         completed : !todo.completed
       };
     }else{
