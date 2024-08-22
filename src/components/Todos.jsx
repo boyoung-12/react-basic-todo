@@ -28,31 +28,36 @@ const TodoList = () => {
       return;
     }
 
-    setTodos([...todos, { id: crypto.randomUUID(), text: newTodo, completed:false}]);
+    setTodos([
+      ...todos,
+      { id: crypto.randomUUID(), text: newTodo, completed: false },
+    ]);
     setNewTodo("");
   };
 
-
   const handleUpdate = (id) => {
-  const updatedTodos = todos.map((todo)=>{
-    if(todo.id===id){
-      return {
-        // id : todo.id,
-        // text : todo.text,
-        ...todo,
-        completed : !todo.completed
-      };
-    }else{
-      return todo;
-    }
-  }
-  );
-  setTodos(updatedTodos);
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return {
+          // id : todo.id,
+          // text : todo.text,
+          ...todo,
+          completed: !todo.completed,
+        };
+      } else {
+        return todo;
+      }
+    });
+    setTodos(updatedTodos);
   };
 
+  const handleDelete = (id) => {
+    const filteredId = todos.filter((todo) => {
+      return todo.id !== id;
+    });
 
-
-
+    setTodos(filteredId);
+  };
 
   return (
     <div>
@@ -67,7 +72,23 @@ const TodoList = () => {
       </form>
       <ul>
         {todos.map((todo) => (
-          <li key={todo.id}>{todo.text} {String(todo.completed)} <button onClick={()=>{handleUpdate(todo.id)}}>완료</button></li> 
+          <li key={todo.id}>
+            {todo.text} {String(todo.completed)}{" "}
+            <button
+              onClick={() => {
+                handleUpdate(todo.id);
+              }}
+            >
+              완료
+            </button>
+            <button
+              onClick={() => {
+                handleDelete(todo.id);
+              }}
+            >
+              삭제
+            </button>
+          </li>
         ))}
       </ul>
     </div>
